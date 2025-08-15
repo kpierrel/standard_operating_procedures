@@ -5,6 +5,7 @@
 - This SOP outlines the steps necessary to run Molecular Dynamic Simulations using OpenMM and OpenFF on your local machine.
 
 ### 2. Procedure
+
 #### 2.1 Downloading Necessary Software
 ##### 2.1.1 Install Visual Studio Code or any Integrated Development Environment (IDE)
 - Follow the instructions to download VS Code [here](https://code.visualstudio.com/Download)
@@ -40,8 +41,8 @@
     - Use a SMILEs to PDB converter, download PDB file, and place in Initial PDB Folder
     - Small molecule SMILEs to PDB converter can be found [here](https://www.novoprolabs.com/tools/smiles2pdb)   
     - Polymer-sized molecule SMILEs to PDB converter can be found [here](https://cactus.nci.nih.gov/translate/)
-- Open VS Code, open project folder, open Packmol Input Files folder
-- Create a Packmol input file in the following format
+- Open VS Code or other IDE, open project folder, open Packmol Input Files folder
+- Create a Packmol input file in the following format using a text editor or IDE
     - Name the file in this format: *XXX.inp*
 ![Packmol Input File Example. This shows the spacing between molecules (tolerance), output file type, input file type, and the structure of the simulation box. The structure of the simulation box includes the initial molecule PDB file, how many atoms of each molecule should be in the box, the dimensions of the simulation box in Angstroms, and the end of the structure.](Packmol_input_file.png)
 - Open Terminal/Command Prompt

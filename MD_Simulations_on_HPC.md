@@ -2,16 +2,19 @@
 ## Running Molecular Dynamic Simulations on your Local Machine
 
 ### 1. Purpose
-- This SOP outlines the steps necessary to run Molecular Dynamic Simulations using OpenMM and OpenFF on a local HPC.
+- This SOP outlines the steps necessary to run Molecular Dynamic Simulations using OpenMM and OpenFF on a local high powered computer (HPC) system.
 
 ### 2. Procedure
-#### 2.1 Set Up NSF Access Account
+
+#### 2.1 Set Up NSF Access Account on your Local Machine
 - Use the NSF Access [website](https://access-ci.org/get-started/for-graduate-students/) to begin setting up your account
 - Your advisor should add you to their allocated server.
-#### 2.2 Set Up your HPC Account
+
+#### 2.2 Set Up your HPC Account on your Local Machine
 - Use the Pittsburgh Supercomputer [website](https://www.psc.edu/resources/bridges-2/user-guide/) to begin setting up your PSC account password
 ##### 2.2.1 Set Up an SSH Connection to your Local Machine's Terminal/Command Prompt
 - Follow the instructions to establish an SSH connection [here](https://www.psc.edu/resources/bridges-2/user-guide#connecting-to-bridges-2)
+
 #### 2.3 Downloading Necessary Software on Your Local Machine
 ##### 2.3.1 Install Visual Studio Code or any Integrated Development Environment (IDE)
 - Follow the instructions to download VS Code [here](https://code.visualstudio.com/Download)
@@ -23,9 +26,11 @@
 - Follow the instructions to install Packmol [here](https://m3g.github.io/packmol/download.shtml)
 ##### 2.3.5 Install VMD
 - Follow the instructions to install VMD [here](https://www.ks.uiuc.edu/Development/Download/download.cgi?PackageName=VMD)
+
 #### 2.4 Downloading Necessary Software on the HPC
 ##### 2.4.1 Install OpenMM
 - Check the cuda version that is able to run on the HPC's GPU
+    - SSH into the HPC's login node from your local machine's Terminal/Command Prompt
 ```bash
 interact -p GPU -t 01:00:00 --gres=gpu:1
 module avail cuda
@@ -33,10 +38,13 @@ nvidia-smi
 ```
 - Follow the instructions to install OpenMM [here](https://docs.openmm.org/latest/userguide/application/01_getting_started.html#introduction)
     - Match the highest cuda version that is available with the GPU cuda version (cuda version 11.7.1 is what worked during Summer 2025)
-##### 2.3.2 Install OpenFF
+```bash
+micromamba install -c conda-forge openmm cuda-version=11.7.1
+```
+##### 2.4.2 Install OpenFF
 - Follow the instructions to install OpenFF [here](https://docs.openforcefield.org/projects/toolkit/en/latest/installation.html)
 
-#### 2.2 Creating Folders for Files on your Local Machine
+#### 2.5 Creating Folders for Files on your Local Machine
 - Create a folder for the whole project (ideally with no spaces in the title)
     -  Example: *GPE_Transport_Properties_for_SIBs*
     -  The name of folders and files should be detailed enough for one to immediately remember what they were working on 1 year in the future
@@ -46,7 +54,7 @@ nvidia-smi
     -  Create a folder for Packmol Output Files
     -  Create a folder for Molecular Dynamic Output Files
 
-#### 2.3 Creating Initial Configurations with Packmol on your Local Machine
+#### 2.6 Creating Initial Configurations with Packmol on your Local Machine
 - Form PDB files for molecules
     - Use PubChem to find SMILE string
         - Try Sigma Aldrich for specific chemicals found in papers
@@ -55,8 +63,8 @@ nvidia-smi
     - Use a SMILEs to PDB converter, download PDB file, and place in Initial PDB Folder
     - Small molecule SMILEs to PDB converter can be found [here](https://www.novoprolabs.com/tools/smiles2pdb)   
     - Polymer-sized molecule SMILEs to PDB converter can be found [here](https://cactus.nci.nih.gov/translate/)
-- Open VS Code, open project folder, open Packmol Input Files folder
-- Create a Packmol input file in the following format
+- Open VS Code or other IDE, open project folder, open Packmol Input Files folder
+- Create a Packmol input file in the following format using a text editor or IDE
     - Name the file in this format: *XXX.inp*
 ![Packmol Input File Example. This shows the spacing between molecules (tolerance), output file type, input file type, and the structure of the simulation box. The structure of the simulation box includes the initial molecule PDB file, how many atoms of each molecule should be in the box, the dimensions of the simulation box in Angstroms, and the end of the structure.](Packmol_input_file.png)
 - Open Terminal/Command Prompt
@@ -77,8 +85,9 @@ nvidia-smi
 rsync -avz ~/GPE_Transport_Properties_for_SIBs/ username@bridges2.psc.edu:/jet/home/username/
 ```
 
-#### 2.4 Performing Molecular Dynamic Simulations on the HPC
-- Open a text editor on the HPC 
+#### 2.7 Performing Molecular Dynamic Simulations on the HPC
+- SSH into the HPC's login node from your local machine's Terminal/Command Prompt
+- Open a text editor on the HPC (nano or vim will work)
 - Write a script for the specific molecular dynamic simulation using Sage 2.2.0
     - An example of the script using OpenMM and OpenFF for the simulation can be found at [this website](https://docs.openforcefield.org/en/latest/examples/openforcefield/openff-toolkit/SMIRNOFF_simulation/run_simulation.html)
     - Name the simulation script in the following format: *XXX.py*
