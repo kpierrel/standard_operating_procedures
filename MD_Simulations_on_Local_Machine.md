@@ -66,5 +66,7 @@
     - Activate the micromamba environment used to install OpenMM and OpenFF
     - Navigate into the overall project folder
 ```bash
+micromamba activate *env_name*
+cd ~/GPE_Transport_Properties_for_SIBs
 python XXX.py
 ```
